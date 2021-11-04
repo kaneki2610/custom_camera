@@ -1,2 +1,2 @@
-# vnpt.camera
+# Custom camera
 
