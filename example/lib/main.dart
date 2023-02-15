@@ -7,8 +7,8 @@ import 'dart:io';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:video_player/video_player.dart';
+//import 'package:path_provider/path_provider.dart';
+//import 'package:video_player/video_player.dart';
 
 class CameraExampleHome extends StatefulWidget {
   @override
@@ -38,7 +38,7 @@ class _CameraExampleHomeState extends State<CameraExampleHome>
   CameraController controller;
   String imagePath;
   String videoPath;
-  VideoPlayerController videoController;
+  //VideoPlayerController videoController;
   VoidCallback videoPlayerListener;
   bool enableAudio = true;
 
@@ -164,26 +164,27 @@ class _CameraExampleHomeState extends State<CameraExampleHome>
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            videoController == null && imagePath == null
-                ? Container()
-                : SizedBox(
-                    child: (videoController == null)
-                        ? Image.file(File(imagePath))
-                        : Container(
-                            child: Center(
-                              child: AspectRatio(
-                                  aspectRatio:
-                                      videoController.value.size != null
-                                          ? videoController.value.aspectRatio
-                                          : 1.0,
-                                  child: VideoPlayer(videoController)),
-                            ),
-                            decoration: BoxDecoration(
-                                border: Border.all(color: Colors.pink)),
-                          ),
-                    width: 64.0,
-                    height: 64.0,
-                  ),
+            Container()
+            // videoController == null && imagePath == null
+            //     ? Container()
+            //     : SizedBox(
+            //         child: (videoController == null)
+            //             ? Image.file(File(imagePath))
+            //             : Container(
+            //                 child: Center(
+            //                   child: AspectRatio(
+            //                       aspectRatio:
+            //                           videoController.value.size != null
+            //                               ? videoController.value.aspectRatio
+            //                               : 1.0,
+            //                       child: VideoPlayer(videoController)),
+            //                 ),
+            //                 decoration: BoxDecoration(
+            //                     border: Border.all(color: Colors.pink)),
+            //               ),
+            //         width: 64.0,
+            //         height: 64.0,
+            //       ),
           ],
         ),
       ),
@@ -317,8 +318,8 @@ class _CameraExampleHomeState extends State<CameraExampleHome>
       if (mounted) {
         setState(() {
           imagePath = filePath;
-          videoController?.dispose();
-          videoController = null;
+          // videoController?.dispose();
+          // videoController = null;
         });
         if (filePath != null) showInSnackBar('Picture saved to $filePath');
       }
@@ -368,29 +369,29 @@ class _CameraExampleHomeState extends State<CameraExampleHome>
   }
 
   Future<String> startVideoRecording() async {
-    if (!controller.value.isInitialized) {
-      showInSnackBar('Error: select a camera first.');
-      return null;
-    }
+    // if (!controller.value.isInitialized) {
+    //   showInSnackBar('Error: select a camera first.');
+    //   return null;
+    // }
 
-    final Directory extDir = await getApplicationDocumentsDirectory();
-    final String dirPath = '${extDir.path}/Movies/flutter_test';
-    await Directory(dirPath).create(recursive: true);
-    final String filePath = '$dirPath/${timestamp()}.mp4';
+    // final Directory extDir = await getApplicationDocumentsDirectory();
+    // final String dirPath = '${extDir.path}/Movies/flutter_test';
+    // await Directory(dirPath).create(recursive: true);
+    // final String filePath = '$dirPath/${timestamp()}.mp4';
 
-    if (controller.value.isRecordingVideo) {
-      // A recording is already started, do nothing.
-      return null;
-    }
+    // if (controller.value.isRecordingVideo) {
+    //   // A recording is already started, do nothing.
+    //   return null;
+    // }
 
-    try {
-      videoPath = filePath;
-      await controller.startVideoRecording(filePath);
-    } on CameraException catch (e) {
-      _showCameraException(e);
-      return null;
-    }
-    return filePath;
+    // try {
+    //   videoPath = filePath;
+    //   await controller.startVideoRecording(filePath);
+    // } on CameraException catch (e) {
+    //   _showCameraException(e);
+    //   return null;
+    // }
+    // return filePath;
   }
 
   Future<void> stopVideoRecording() async {
@@ -435,50 +436,50 @@ class _CameraExampleHomeState extends State<CameraExampleHome>
   }
 
   Future<void> _startVideoPlayer() async {
-    final VideoPlayerController vcontroller =
-        VideoPlayerController.file(File(videoPath));
-    videoPlayerListener = () {
-      if (videoController != null && videoController.value.size != null) {
-        // Refreshing the state to update video player with the correct ratio.
-        if (mounted) setState(() {});
-        videoController.removeListener(videoPlayerListener);
-      }
-    };
-    vcontroller.addListener(videoPlayerListener);
-    await vcontroller.setLooping(true);
-    await vcontroller.initialize();
-    await videoController?.dispose();
-    if (mounted) {
-      setState(() {
-        imagePath = null;
-        videoController = vcontroller;
-      });
-    }
-    await vcontroller.play();
+    // final VideoPlayerController vcontroller =
+    //     VideoPlayerController.file(File(videoPath));
+    // videoPlayerListener = () {
+    //   if (videoController != null && videoController.value.size != null) {
+    //     // Refreshing the state to update video player with the correct ratio.
+    //     if (mounted) setState(() {});
+    //     videoController.removeListener(videoPlayerListener);
+    //   }
+    // };
+    // vcontroller.addListener(videoPlayerListener);
+    // await vcontroller.setLooping(true);
+    // await vcontroller.initialize();
+    // await videoController?.dispose();
+    // if (mounted) {
+    //   setState(() {
+    //     imagePath = null;
+    //     videoController = vcontroller;
+    //   });
+    // }
+    // await vcontroller.play();
   }
 
   Future<String> takePicture() async {
-    if (!controller.value.isInitialized) {
-      showInSnackBar('Error: select a camera first.');
-      return null;
-    }
-    final Directory extDir = await getApplicationDocumentsDirectory();
-    final String dirPath = '${extDir.path}/Pictures/flutter_test';
-    await Directory(dirPath).create(recursive: true);
-    final String filePath = '$dirPath/${timestamp()}.jpg';
+    // if (!controller.value.isInitialized) {
+    //   showInSnackBar('Error: select a camera first.');
+    //   return null;
+    // }
+    // final Directory extDir = await getApplicationDocumentsDirectory();
+    // final String dirPath = '${extDir.path}/Pictures/flutter_test';
+    // await Directory(dirPath).create(recursive: true);
+    // final String filePath = '$dirPath/${timestamp()}.jpg';
 
-    if (controller.value.isTakingPicture) {
-      // A capture is already pending, do nothing.
-      return null;
-    }
+    // if (controller.value.isTakingPicture) {
+    //   // A capture is already pending, do nothing.
+    //   return null;
+    // }
 
-    try {
-      await controller.takePicture(filePath);
-    } on CameraException catch (e) {
-      _showCameraException(e);
-      return null;
-    }
-    return filePath;
+    // try {
+    //   await controller.takePicture(filePath);
+    // } on CameraException catch (e) {
+    //   _showCameraException(e);
+    //   return null;
+    // }
+    // return filePath;
   }
 
   void _showCameraException(CameraException e) {
